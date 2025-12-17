@@ -57,7 +57,7 @@ export default function Hero() {
                     className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
                 >
                     With 1.7 years of experience building scalable web applications.
-                    Specializing in full-stack development with Java, Spring Boot, and React.
+                    Specializing in full-stack development with Java, and React.
                 </motion.p>
 
                 <motion.div variants={fadeInUp} className="flex justify-center space-x-6 mb-12">
