@@ -23,7 +23,9 @@ export default function Contact() {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: 'YOUR_ACCESS_KEY_HERE', // Replace with your actual access key
+                    access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_ACCESS_KEY_HERE",
+                    subject: 'New Contact Form Submission - Portfolio',
+                    from_name: 'Portfolio Contact',
                     ...formData
                 })
             });
@@ -167,8 +169,8 @@ export default function Contact() {
                                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                                 className={`w-full py-4 rounded-lg font-semibold text-white shadow-lg flex items-center justify-center gap-2 transition-all ${isSubmitting
-                                        ? 'bg-slate-700 cursor-not-allowed'
-                                        : 'bg-gradient-to-r from-cyan-500 to-blue-600 shadow-cyan-500/25'
+                                    ? 'bg-slate-700 cursor-not-allowed'
+                                    : 'bg-gradient-to-r from-cyan-500 to-blue-600 shadow-cyan-500/25'
                                     }`}
                             >
                                 {isSubmitting ? (

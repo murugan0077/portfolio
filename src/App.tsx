@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import LoadingScreen from './components/LoadingScreen';
 import Layout from './components/layout/Layout';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
@@ -8,6 +10,7 @@ import Skills from './components/sections/Skills';
 import Contact from './components/sections/Contact';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
@@ -32,14 +35,20 @@ function App() {
   }, []);
 
   return (
-    <Layout activeSection={activeSection}>
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Contact />
-    </Layout>
+    <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+
+      <Layout activeSection={activeSection}>
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
+      </Layout>
+    </>
   );
 }
 

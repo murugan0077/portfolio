@@ -38,12 +38,12 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
     return (
         <motion.nav
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-                    ? 'bg-slate-950/80 backdrop-blur-md shadow-lg py-4 border-b border-slate-800/50'
-                    : 'bg-transparent py-6'
+            className={`fixed top-4 left-0 right-0 mx-auto w-[95%] md:w-[90%] max-w-7xl z-50 rounded-2xl transition-all duration-300 border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] ${isScrolled
+                    ? 'bg-slate-900/40 backdrop-blur-2xl py-3'
+                    : 'bg-slate-900/20 backdrop-blur-xl py-4'
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">

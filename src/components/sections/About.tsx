@@ -93,7 +93,7 @@ export default function About() {
                                 <div className="text-slate-400 text-sm font-medium">Years Experience</div>
                             </div>
                             <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800 hover:border-cyan-500/30 transition-colors text-center group">
-                                <div className="text-4xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform">15+</div>
+                                <div className="text-4xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform">5+</div>
                                 <div className="text-slate-400 text-sm font-medium">Projects Completed</div>
                             </div>
                         </motion.div>
