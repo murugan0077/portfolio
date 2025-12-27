@@ -44,10 +44,10 @@ const projects = [
     {
         id: 5,
         title: 'E-Commerce Platform',
-        description: 'Full-featured e-commerce platform with payment integration, inventory management, and real-time order tracking.',
-        tags: ['React', 'Node.js', 'Stripe', 'MongoDB'],
+        description: 'Full-featured e-commerce console application',
+        tags: ['Java', 'postgresql'],
         category: 'fullstack',
-        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?auto=format&fit=crop&q=80&w=800',
+        image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=800',
         featured: false
     },
     {
@@ -58,6 +58,24 @@ const projects = [
         category: 'frontend',
         image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?auto=format&fit=crop&q=80&w=800',
         featured: false
+    },
+    {
+        id: 7,
+        title: 'Build My Own Jarvis',
+        description: 'Personal AI assistant capable of voice interaction, task automation, and system control.',
+        tags: ['Python', 'NLP', 'Automation', 'Speech Recognition'],
+        category: 'fullstack',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+        featured: false
+    },
+    {
+        id: 8,
+        title: 'Meenatchi Traders',
+        description: 'Live e-commerce site with real-time Firebase database, React UI, and dynamic inventory management.',
+        tags: ['React', 'Firebase', 'Tailwind', 'Context API'],
+        category: 'fullstack',
+        image: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&q=80&w=800',
+        featured: true
     }
 ];
 
@@ -89,8 +107,8 @@ export default function Projects() {
                             key={filter.id}
                             onClick={() => setActiveFilter(filter.id)}
                             className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeFilter === filter.id
-                                    ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
-                                    : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800'
+                                ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
+                                : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800'
                                 }`}
                         >
                             {filter.label}
