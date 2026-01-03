@@ -1,6 +1,6 @@
 import React from 'react';
 import { DEBUG_CONDITIONS } from '../../../utils/compilerSequence';
-import { Check, AlertTriangle, XCircle } from 'lucide-react';
+import { Check, AlertTriangle } from 'lucide-react';
 
 interface DebuggerPanelProps {
     visibleConditions: number;

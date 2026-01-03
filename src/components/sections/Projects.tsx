@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Code } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import AnimatedSection from '../motion/AnimatedSection';
-import { fadeInUp, staggerContainer, scaleIn } from '../motion/variants';
+import { fadeInUp } from '../motion/variants';
 
 const projects = [
     {

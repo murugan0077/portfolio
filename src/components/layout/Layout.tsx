@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import Cursor from './Cursor';
 
 interface LayoutProps {
     children: React.ReactNode;

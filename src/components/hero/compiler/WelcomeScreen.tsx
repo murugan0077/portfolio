@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Globe, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, Globe } from 'lucide-react';
 
 const WelcomeScreen: React.FC = () => {
     return (

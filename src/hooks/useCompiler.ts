@@ -27,7 +27,7 @@ export const useCompiler = (isActive: boolean) => {
         }
     };
 
-    const showOutput = async (text: string, color: string = 'white', delay: number = 0) => {
+    const showOutput = async (text: string, _color: string = 'white', delay: number = 0) => {
         await new Promise((resolve) => setTimeout(resolve, delay));
         if (!isMounted.current) return;
         setOutput((prev) => prev + text + '\n');
@@ -47,11 +47,11 @@ export const useCompiler = (isActive: boolean) => {
                 await new Promise((resolve) => setTimeout(resolve, 500));
             } else if (step.type === 'command') {
                 setState('typing');
-                await typeText(step.text, step.delay);
+                await typeText(step.text || '', step.delay);
                 await new Promise((resolve) => setTimeout(resolve, step.displayDuration));
             } else if (step.type === 'output') {
                 setState('compiling');
-                await showOutput(step.text, step.color);
+                await showOutput(step.text || '', step.color);
                 await new Promise((resolve) => setTimeout(resolve, step.displayDuration));
             } else if (step.type === 'debugger') {
                 setState('debugger');

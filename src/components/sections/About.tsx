@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Award, MapPin, Code, User } from 'lucide-react';
+import { Award, MapPin, User } from 'lucide-react';
 import AnimatedSection from '../motion/AnimatedSection';
 import { fadeInUp, staggerContainer, slideInLeft, slideInRight } from '../motion/variants';
 

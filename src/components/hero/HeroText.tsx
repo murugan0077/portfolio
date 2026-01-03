@@ -48,7 +48,7 @@ export default function HeroText() {
                     Get In Touch <ArrowRight size={16} />
                 </a>
                 <a
-                    href="/resume.pdf"
+                    href="/Resume.pdf"
                     target="_blank"
                     className="px-5 py-2.5 bg-slate-800 text-white rounded-lg font-semibold hover:bg-slate-700 transition-colors border border-slate-700 flex items-center gap-2 text-sm"
                 >
@@ -63,8 +63,8 @@ export default function HeroText() {
                 className="flex gap-4"
             >
                 {[
-                    { href: "https://github.com/murugan", icon: Github },
-                    { href: "https://linkedin.com/in/murugan", icon: Linkedin },
+                    { href: "https://github.com/murugan0077/", icon: Github },
+                    { href: "https://www.linkedin.com/in/s-murugan-dev", icon: Linkedin },
                     { href: "mailto:murugan25oct@gmail.com", icon: Mail }
                 ].map((item, index) => (
                     <a
