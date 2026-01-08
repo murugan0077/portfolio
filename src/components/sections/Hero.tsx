@@ -1,50 +1,58 @@
-import { Suspense, useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import HeroText from '../hero/HeroText';
 import CompilerCard from '../hero/CompilerCard';
-import RubiksCube from '../hero/RubiksCube';
+import HeroBackground from '../hero/HeroBackground';
 
 export default function Hero() {
     const [isMounted, setIsMounted] = useState(false);
+    const containerRef = useRef<HTMLElement>(null);
+    const { scrollY } = useScroll();
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Parallax effects
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+    const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+
     return (
-        <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-slate-950 pt-2 md:pt-0">
-            {/* Background Elements */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950" />
-            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        <section
+            ref={containerRef}
+            id="home"
+            className="relative min-h-screen flex items-center overflow-hidden bg-slate-950 pt-20 md:pt-0"
+        >
+            <HeroBackground />
 
-            {/* Ambient Glows */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 blur-[120px]" />
-                <div className="absolute top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/10 blur-[120px]" />
-            </div>
-
-            <div className="container mx-auto px-6 relative z-10 h-full">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 h-full">
-                    {/* Left Side - Text & Cube */}
-                    <div className="w-full lg:w-1/2 flex flex-col gap-6 justify-center">
+            <div className="container mx-auto px-6 relative z-10">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+                    {/* Left Side - Text */}
+                    <motion.div
+                        style={isMobile ? {} : { y: y1 }}
+                        className="w-full lg:w-1/2 flex flex-col justify-center gap-8"
+                    >
                         <HeroText />
-                        <div className="w-full h-[180px] md:h-[250px] relative -mt-6 md:-mt-8">
-                            <Suspense fallback={
-                                <div className="w-full h-full flex items-center justify-center text-slate-500 text-sm">
-                                    Loading...
-                                </div>
-                            }>
-                                <RubiksCube />
-                            </Suspense>
-                        </div>
-                    </div>
+                    </motion.div>
 
                     {/* Right Side - Compiler */}
-                    <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center">
+                    <motion.div
+                        style={isMobile ? {} : { y: y2 }}
+                        className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center perspective-1000"
+                    >
                         <CompilerCard isActive={isMounted} />
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
     );
 }
-

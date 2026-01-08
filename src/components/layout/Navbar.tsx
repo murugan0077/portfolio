@@ -31,8 +31,10 @@ export default function Navbar({ activeSection }: NavbarProps) {
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
             setIsMobileMenuOpen(false);
+            setTimeout(() => {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 150);
         }
     };
 
@@ -98,17 +100,21 @@ export default function Navbar({ activeSection }: NavbarProps) {
                     >
                         <div className="flex flex-col space-y-4 p-6">
                             {navItems.map((item) => (
-                                <motion.button
+                                <motion.a
                                     key={item.id}
+                                    href={`#${item.id}`}
                                     initial={{ x: -20, opacity: 0 }}
                                     animate={{ x: 0, opacity: 1 }}
                                     transition={{ delay: 0.1 }}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className={`text-left text-lg font-medium transition-colors duration-300 ${activeSection === item.id ? 'text-cyan-400' : 'text-slate-300 hover:text-white'
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        scrollToSection(item.id);
+                                    }}
+                                    className={`block text-left text-lg font-medium transition-colors duration-300 ${activeSection === item.id ? 'text-cyan-400' : 'text-slate-300 hover:text-white'
                                         }`}
                                 >
                                     {item.label}
-                                </motion.button>
+                                </motion.a>
                             ))}
                         </div>
                     </motion.div>

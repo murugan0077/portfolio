@@ -101,6 +101,10 @@ export default function Projects() {
                     <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full" />
                 </motion.div>
 
+                {/* <motion.div variants={fadeInUp} className="mb-12">
+                    <BookFlipCarousel projects={featuredProjects} />
+                </motion.div> */}
+
                 <motion.div variants={fadeInUp} className="flex justify-center gap-4 mb-12">
                     {filters.map((filter) => (
                         <button
@@ -116,6 +120,10 @@ export default function Projects() {
                     ))}
                 </motion.div>
 
+                <motion.div className="text-center mb-4">
+                    <h3 className="text-2xl font-bold text-white">All Projects</h3>
+                </motion.div>
+
                 <motion.div
                     layout
                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -129,10 +137,9 @@ export default function Projects() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
-                                className={`group relative bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-colors ${project.featured ? 'md:col-span-2 lg:col-span-2' : ''
-                                    }`}
+                                className="group relative bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-colors"
                             >
-                                <div className={`relative overflow-hidden ${project.featured ? 'h-64 md:h-80' : 'h-48'}`}>
+                                <div className="relative overflow-hidden h-48">
                                     <img
                                         src={project.image}
                                         alt={project.title}
