@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
+import MotionProvider from './components/motion/MotionProvider';
 import LoadingScreen from './components/LoadingScreen';
 import Layout from './components/layout/Layout';
 import Hero from './components/sections/Hero';
@@ -30,12 +31,12 @@ function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <>
+    <MotionProvider>
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
@@ -48,7 +49,7 @@ function App() {
         <Skills />
         <Contact />
       </Layout>
-    </>
+    </MotionProvider>
   );
 }
 

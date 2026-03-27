@@ -1,82 +1,126 @@
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { m } from 'framer-motion';
+import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  const socialLinks = [
-    { icon: Github, href: 'https://github.com/murugan', label: 'GitHub' },
+const socialLinks = [
+    { icon: Github, href: 'https://github.com/murugan0077', label: 'GitHub' },
     { icon: Linkedin, href: 'https://linkedin.com/in/murugan', label: 'LinkedIn' },
     { icon: Mail, href: 'mailto:murugan25oct@gmail.com', label: 'Email' },
-  ];
+];
 
-  return (
-    <footer className="relative bg-slate-950 border-t border-slate-900 pt-20 pb-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-16">
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Murugan.dev
-            </h3>
-            <p className="text-slate-400 leading-relaxed max-w-xs">
-              Crafting scalable digital solutions with modern web technologies.
-              Focused on performance, accessibility, and user experience.
-            </p>
-          </div>
+const navLinks = ['Home', 'About', 'Experience', 'Projects', 'Skills', 'Contact'];
 
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-6">Quick Links</h4>
-            <ul className="space-y-3">
-              {['Home', 'About', 'Experience', 'Projects', 'Skills', 'Contact'].map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/50 group-hover:bg-cyan-400 transition-colors" />
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+const ticker = ['React', 'Java', 'Spring Boot', 'TypeScript', 'PostgreSQL', 'Tailwind', 'Docker', 'Git', 'Full Stack', 'Clean Code'];
 
-          <div>
-            <h4 className="text-lg font-semibold text-white mb-6">Connect</h4>
-            <div className="flex gap-4 mb-6">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-3 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-cyan-500 transition-colors border border-slate-800 hover:border-cyan-500"
-                  aria-label={social.label}
-                >
-                  <social.icon size={20} />
-                </motion.a>
-              ))}
+export default function Footer() {
+    const year = new Date().getFullYear();
+
+    return (
+        <footer className="relative bg-[#030712] border-t border-white/[0.05] overflow-hidden" aria-label="Site footer">
+            {/* Ticker strip */}
+            <div className="border-b border-white/[0.04] py-3 overflow-hidden" aria-hidden="true">
+                <div className="flex gap-8 animate-ticker whitespace-nowrap select-none">
+                    {[...ticker, ...ticker].map((t, i) => (
+                        <span key={i} className="text-xs font-mono text-slate-500 flex items-center gap-3">
+                            <span className="w-1 h-1 rounded-full bg-cyan-500/40 inline-block" />
+                            {t}
+                        </span>
+                    ))}
+                </div>
             </div>
-            <div className="space-y-2 text-slate-400">
-              <a href="mailto:murugan25oct@gmail.com" className="block hover:text-cyan-400 transition-colors">
-                murugan25oct@gmail.com
-              </a>
-              <a href="tel:+918778987102" className="block hover:text-cyan-400 transition-colors">
-                +91 8778987102
-              </a>
-            </div>
-          </div>
-        </div>
 
-        <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-center items-center gap-4 text-sm text-slate-500">
-          <p>© {currentYear} Murugan S. All rights reserved.</p>
-          {/* <p className="flex items-center gap-2">
-            Made with <Heart size={14} className="text-red-500 fill-red-500" /> using React & Framer Motion
-          </p> */}
-        </div>
-      </div>
-    </footer>
-  );
+            {/* Main footer */}
+            <div className="max-w-6xl mx-auto px-6 py-14 sm:py-16 relative z-10">
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 mb-14">
+                    {/* Brand */}
+                    <div className="space-y-4">
+                        <div className="text-2xl font-bold font-mono gradient-text">
+                            &lt;Murugan /&gt;
+                        </div>
+                        <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+                            Crafting scalable digital solutions with modern web technologies. Focused on performance, accessibility, and user experience.
+                        </p>
+                        {/* Social icons */}
+                        <div className="flex gap-2 pt-1">
+                            {socialLinks.map((s) => (
+                                <m.a
+                                    key={s.label}
+                                    href={s.href}
+                                    target={s.href.startsWith('http') ? '_blank' : undefined}
+                                    rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                    aria-label={s.label}
+                                    whileHover={{ y: -3, scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.07] text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-colors duration-200"
+                                >
+                                    <s.icon size={16} />
+                                </m.a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Quick links */}
+                    <nav aria-label="Footer navigation">
+                        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-5">Quick Links</h2>
+                        <ul className="space-y-2.5">
+                            {navLinks.map((link) => (
+                                <li key={link}>
+                                    <a
+                                        href={`#${link.toLowerCase()}`}
+                                        className="group flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-200"
+                                    >
+                                        <span className="w-1 h-1 rounded-full bg-slate-600 group-hover:bg-cyan-400 transition-colors" />
+                                        {link}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    {/* Contact info */}
+                    <div>
+                        <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-5">Contact</h2>
+                        <div className="space-y-3">
+                            <a
+                                href="mailto:murugan25oct@gmail.com"
+                                className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors group"
+                                aria-label="Send email to Murugan"
+                            >
+                                <Mail size={13} className="shrink-0" />
+                                murugan25oct@gmail.com
+                                <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <a
+                                href="tel:+918778987102"
+                                className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors group"
+                                aria-label="Call Murugan"
+                            >
+                                <span className="font-mono text-[11px]">📞</span>
+                                +91 8778987102
+                                <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                            <div className="flex items-center gap-2 text-sm text-slate-400">
+                                <span className="font-mono text-[11px]">📍</span>
+                                Srivilliputtur, Tamil Nadu
+                            </div>
+                        </div>
+
+                        {/* Availability pill */}
+                        <div className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/20 text-green-400 text-xs font-medium">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
+                            Available for work
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom bar */}
+                <div className="border-t border-white/[0.05] pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-400">
+                    <span>© {year} Murugan S. All rights reserved.</span>
+                    <span className="font-mono">Built with React &amp; Framer Motion</span>
+                </div>
+            </div>
+
+            {/* Bottom glow */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-cyan-500/5 blur-[80px] rounded-full pointer-events-none" aria-hidden="true" />
+        </footer>
+    );
 }

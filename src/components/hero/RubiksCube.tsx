@@ -216,7 +216,12 @@ export default function RubiksCube() {
             </div>
 
             <div className="w-full h-full cursor-grab active:cursor-grabbing">
-                <Canvas camera={{ position: [5, 5, 5], fov: 45 }}>
+                <Canvas 
+                    camera={{ position: [5, 5, 5], fov: 45 }}
+                    // Only render when necessary to save CPU/Battery
+                    frameloop="demand"
+                    performance={{ min: 0.5 }}
+                >
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} intensity={1} />
                     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>

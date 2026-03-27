@@ -1,10 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Github, Linkedin, Mail, Globe } from 'lucide-react';
 
 const WelcomeScreen: React.FC = () => {
     return (
-        <motion.div
+        <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -94,7 +94,7 @@ const WelcomeScreen: React.FC = () => {
                     </div>
                 </section>
             </div>
-        </motion.div>
+        </m.div>
     );
 };
 

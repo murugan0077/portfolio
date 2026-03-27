@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import { m, AnimatePresence, PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
 
 interface Project {
@@ -47,7 +47,7 @@ export default function BookFlipCarousel({ projects }: BookFlipCarouselProps) {
 
     return (
         <div className="w-full flex flex-col items-center gap-8">
-            <motion.div
+            <m.div
                 drag="x"
                 dragElastic={0.2}
                 onDragEnd={handleDragEnd}
@@ -58,7 +58,7 @@ export default function BookFlipCarousel({ projects }: BookFlipCarouselProps) {
                 <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                     <AnimatePresence mode="wait">
                         {currentProjects.map((project, index) => (
-                            <motion.div
+                            <m.div
                                 key={`${currentPage}-${index}`}
                                 initial={{ rotateY: 90, opacity: 0 }}
                                 animate={{ rotateY: 0, opacity: 1 }}
@@ -78,25 +78,33 @@ export default function BookFlipCarousel({ projects }: BookFlipCarouselProps) {
                                         <img
                                             src={project.image}
                                             alt={project.title}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 backdrop-blur-sm">
-                                            <motion.a
+                                            <m.a
                                                 href="#"
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="View live project"
                                                 className="p-3 bg-cyan-500 rounded-full text-slate-950"
                                             >
                                                 <ExternalLink size={20} />
-                                            </motion.a>
-                                            <motion.a
+                                            </m.a>
+                                            <m.a
                                                 href="#"
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="View GitHub source"
                                                 className="p-3 bg-slate-800 rounded-full text-white"
                                             >
                                                 <Github size={20} />
-                                            </motion.a>
+                                            </m.a>
                                         </div>
                                     </div>
 
@@ -130,25 +138,25 @@ export default function BookFlipCarousel({ projects }: BookFlipCarouselProps) {
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         ))}
                     </AnimatePresence>
                 </div>
-            </motion.div>
+            </m.div>
 
             <div className="flex items-center justify-center gap-6">
-                <motion.button
+                <m.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={handlePrev}
                     className="p-3 bg-slate-900 hover:bg-slate-800 text-cyan-400 hover:text-cyan-300 rounded-full border border-slate-800 hover:border-cyan-500/50 transition-all duration-300"
                 >
                     <ChevronLeft size={24} />
-                </motion.button>
+                </m.button>
 
                 <div className="flex gap-2">
                     {Array.from({ length: totalPages }).map((_, i) => (
-                        <motion.button
+                        <m.button
                             key={i}
                             onClick={() => setCurrentPage(i)}
                             animate={{
@@ -160,14 +168,14 @@ export default function BookFlipCarousel({ projects }: BookFlipCarouselProps) {
                     ))}
                 </div>
 
-                <motion.button
+                <m.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={handleNext}
                     className="p-3 bg-slate-900 hover:bg-slate-800 text-cyan-400 hover:text-cyan-300 rounded-full border border-slate-800 hover:border-cyan-500/50 transition-all duration-300"
                 >
                     <ChevronRight size={24} />
-                </motion.button>
+                </m.button>
             </div>
 
             <p className="text-slate-400 text-sm">

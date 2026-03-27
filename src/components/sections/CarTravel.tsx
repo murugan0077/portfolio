@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { Briefcase, GraduationCap, Calendar, MapPin } from 'lucide-react';
 
 const experiences = [
@@ -38,7 +38,7 @@ export default function CarTravel() {
         <section id="experience" className="py-20 bg-slate-950 relative" ref={containerRef}>
             <div className="max-w-6xl mx-auto px-4 md:px-6">
                 {/* Title */}
-                <motion.div 
+                <m.div 
                     className="text-center mb-20"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function CarTravel() {
                         Experience & Education
                     </h2>
                     <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto rounded-full" />
-                </motion.div>
+                </m.div>
 
                 {/* Timeline Section */}
                 <div className="relative">
@@ -64,7 +64,7 @@ export default function CarTravel() {
                         </div>
 
                         {/* Animated Car - centered on road */}
-                        <motion.div
+                        <m.div
                             style={{ x: carX }}
                             className="absolute w-20 md:w-28 top-1/2 -translate-y-1/2 z-40 pointer-events-none"
                             animate={{ rotate: [0, 3, -3, 0] }}
@@ -96,12 +96,12 @@ export default function CarTravel() {
                                 <circle cx="28" cy="50" r="3" fill="#06b6d4" />
                                 <circle cx="72" cy="50" r="3" fill="#06b6d4" />
                             </svg>
-                        </motion.div>
+                        </m.div>
 
                         {/* Experience Cards */}
                         <div className="relative z-20 space-y-12">
                             {experiences.map((exp, index) => (
-                                <motion.div
+                                <m.div
                                     key={index}
                                     className={`flex gap-6 md:gap-8 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
                                     initial={{ opacity: 0, y: 30 }}
@@ -116,7 +116,7 @@ export default function CarTravel() {
                                     </div>
 
                                     {/* Card Content */}
-                                    <motion.div
+                                    <m.div
                                         className="flex-1 bg-gradient-to-br from-slate-900/90 to-slate-900/50 backdrop-blur-md border border-slate-700 rounded-xl p-6 md:p-8 shadow-xl hover:border-cyan-500/50 transition-all duration-300 group"
                                         whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(6, 182, 212, 0.15)' }}
                                     >
@@ -180,32 +180,32 @@ export default function CarTravel() {
                                             <h4 className="text-xs font-bold text-cyan-400 mb-3 uppercase tracking-wider">⚡ Skills</h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {exp.skills.map((skill, i) => (
-                                                    <motion.span
+                                                    <m.span
                                                         key={i}
                                                         className="px-4 py-2 text-xs font-medium rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/20 transition-all"
                                                         whileHover={{ scale: 1.05 }}
                                                     >
                                                         {skill}
-                                                    </motion.span>
+                                                    </m.span>
                                                 ))}
                                             </div>
                                         </div>
-                                    </motion.div>
-                                </motion.div>
+                                    </m.div>
+                                </m.div>
                             ))}
                         </div>
                     </div>
                 </div>
 
                 {/* Info */}
-                <motion.div 
+                <m.div 
                     className="text-center mt-12"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                 >
                     <p className="text-slate-400 text-sm">📍 Scroll down to drive the car through my journey</p>
-                </motion.div>
+                </m.div>
             </div>
         </section>
     );

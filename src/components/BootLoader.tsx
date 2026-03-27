@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface BootLoaderProps {
     onComplete: () => void;
@@ -45,7 +45,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
     }, [currentIndex, onComplete]);
 
     return (
-        <motion.div
+        <m.div
             className="fixed inset-0 z-50 flex flex-col bg-black text-green-500 font-mono p-4 md:p-8 overflow-hidden"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
@@ -56,7 +56,7 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
                 className="flex-1 overflow-y-auto scrollbar-hide"
             >
                 {lines.map((line, index) => (
-                    <motion.div
+                    <m.div
                         key={index}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -67,9 +67,9 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
                             [{new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}]
                         </span>
                         {line}
-                    </motion.div>
+                    </m.div>
                 ))}
-                <motion.div
+                <m.div
                     animate={{ opacity: [0, 1, 0] }}
                     transition={{ duration: 0.8, repeat: Infinity }}
                     className="inline-block w-3 h-5 bg-green-500 ml-1 align-middle"
@@ -79,6 +79,6 @@ export default function BootLoader({ onComplete }: BootLoaderProps) {
             <div className="mt-4 border-t border-green-900 pt-2 text-xs text-green-800">
                 System Status: ONLINE | Memory: 64GB OK | CPU: OPTIMAL
             </div>
-        </motion.div>
+        </m.div>
     );
 }

@@ -1,16 +1,16 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Code2, Database, Layout, Server, Sparkles } from 'lucide-react';
 
 export default function ProfileCard() {
     return (
-        <motion.div
+        <m.div
             className="relative w-full max-w-md mx-auto"
             initial="hidden"
             animate="visible"
             whileHover="hover"
         >
             {/* Abstract Background Shapes for the Card */}
-            <motion.div
+            <m.div
                 className="absolute -top-12 -right-12 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl"
                 animate={{
                     scale: [1, 1.2, 1],
@@ -22,7 +22,7 @@ export default function ProfileCard() {
                     ease: "easeInOut"
                 }}
             />
-            <motion.div
+            <m.div
                 className="absolute -bottom-8 -left-8 w-40 h-40 bg-blue-600/20 rounded-full blur-2xl"
                 animate={{
                     scale: [1, 1.1, 1],
@@ -37,7 +37,7 @@ export default function ProfileCard() {
             />
 
             {/* Main Card */}
-            <motion.div
+            <m.div
                 variants={{
                     hidden: { opacity: 0, scale: 0.8, y: 50 },
                     visible: {
@@ -110,7 +110,7 @@ export default function ProfileCard() {
                     </div>
 
                     {/* Subtle Shine Effect */}
-                    <motion.div
+                    <m.div
                         className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12"
                         animate={{ left: "200%" }}
                         transition={{ duration: 3, repeat: Infinity, delay: 2 }}
@@ -118,14 +118,14 @@ export default function ProfileCard() {
                 </div>
 
                 {/* Floating Badge */}
-                <motion.div
+                <m.div
                     className="absolute top-4 right-4"
                     animate={{ y: [0, -5, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
                     <Sparkles className="text-yellow-400/80" size={20} />
-                </motion.div>
-            </motion.div>
-        </motion.div>
+                </m.div>
+            </m.div>
+        </m.div>
     );
 }

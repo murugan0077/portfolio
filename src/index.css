@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  /* Font families are loaded via <link> in index.html — no @import needed */
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  code, kbd, samp, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  }
+}
+
 @layer utilities {
   .perspective-1000 {
     perspective: 1000px;
@@ -78,7 +89,7 @@
   .animate-shake {
     animation: shake 0.5s ease-in-out;
   }
-}
+ }
 
 @keyframes gradient {
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { m, useMotionValue, useSpring } from 'framer-motion';
 
 export default function Cursor() {
   const cursorX = useMotionValue(-100);
@@ -32,7 +32,7 @@ export default function Cursor() {
 
   return (
     <>
-      <motion.div
+      <m.div
         className="fixed w-4 h-4 bg-cyan-400 rounded-full pointer-events-none z-50 mix-blend-difference"
         style={{
           translateX: cursorXSpring,
@@ -42,7 +42,7 @@ export default function Cursor() {
           scale: isPointer ? 1.5 : 1,
         }}
       />
-      <motion.div
+      <m.div
         className="fixed w-8 h-8 border-2 border-cyan-400 rounded-full pointer-events-none z-50 mix-blend-difference"
         style={{
           translateX: cursorXSpring,
