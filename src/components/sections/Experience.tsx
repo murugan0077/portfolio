@@ -142,7 +142,8 @@ const ExperienceCard = ({
 
             {/* Card */}
             <article
-                className={`relative rounded-3xl border border-white/[0.07] bg-[#080e1a] overflow-hidden transition-all duration-500 group-hover:border-white/[0.14] group-hover:shadow-[0_24px_60px_${a.glow}]`}
+                className={`relative rounded-3xl border border-white/[0.07] bg-[#080e1a] overflow-hidden transition-all duration-500 group-hover:border-white/[0.14] group-hover:shadow-[0_24px_60px_var(--card-glow)]`}
+                style={{ '--card-glow': a.glow } as React.CSSProperties}
             >
                 {/* Top gradient bar */}
                 <div
