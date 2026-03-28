@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { m } from 'framer-motion';
 
 interface LoadingScreenProps {
     onComplete: () => void;
@@ -7,163 +7,146 @@ interface LoadingScreenProps {
 
 export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     const [progress, setProgress] = useState(0);
-    const [phase, setPhase] = useState<'loading' | 'reveal'>('loading');
+    const hasCompleted = useRef(false);
 
-    const starGrid = Array.from({ length: 16 }, (_, i) => i);
+    // Boot sequence text effect
+    const bootTexts = [
+        'INITIALISING KERNEL...',
+        'LOADING ASSETS...',
+        'ESTABLISHING SECURE CONNECTION...',
+        'BUILDING INTERFACE...',
+        'SYSTEM READY.',
+    ];
+    const [statusText, setStatusText] = useState(bootTexts[0]);
 
     useEffect(() => {
         const timer = setInterval(() => {
             setProgress((prev) => {
-                if (prev >= 100) {
+                const nextProgress = prev + (Math.random() * 8 + 2);
+
+                // Update text based on progress thresholds
+                if (nextProgress > 20) setStatusText(bootTexts[1]);
+                if (nextProgress > 50) setStatusText(bootTexts[2]);
+                if (nextProgress > 80) setStatusText(bootTexts[3]);
+
+                if (nextProgress >= 100) {
                     clearInterval(timer);
-                    setTimeout(() => setPhase('reveal'), 200);
-                    setTimeout(onComplete, 900);
+                    setStatusText(bootTexts[4]);
+
+                    if (!hasCompleted.current) {
+                        hasCompleted.current = true;
+                        // Delay before fading out to show "SYSTEM READY"
+                        setTimeout(onComplete, 800);
+                    }
                     return 100;
                 }
-                const increment = Math.random() * 12 + 3;
-                return Math.min(prev + increment, 100);
+                return nextProgress;
             });
-        }, 90);
+        }, 80);
+
         return () => clearInterval(timer);
-    }, [onComplete]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <m.div
             className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#030712] overflow-hidden"
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-            {/* Background grid */}
-            <div className="absolute inset-0 bg-grid opacity-50" />
-
-            {/* Star field */}
-            {starGrid.map((star) => (
-                <m.div
-                    key={`star-${star}`}
-                    className="absolute bg-white rounded-full opacity-60"
-                    style={{
-                        width: `${Math.random() * 3 + 1}px`,
-                        height: `${Math.random() * 3 + 1}px`,
-                        top: `${Math.random() * 100}%`,
-                        left: `${Math.random() * 100}%`,
-                    }}
-                    animate={{
-                        opacity: [0.1, 0.7, 0.1],
-                        scale: [0.8, 1.4, 0.8],
-                    }}
-                    transition={{
-                        duration: 2.5 + Math.random() * 2,
-                        repeat: Infinity,
-                    }}
-                />
-            ))}
-
-            {/* Pulse scanline */}
+            {/* ── Ambient Background Glows ── */}
             <m.div
-                className="absolute inset-x-0 h-0.5 bg-cyan-300/30 blur-md"
-                initial={{ y: '100%' }}
-                animate={{ y: ['100%', '0%', '100%'] }}
-                transition={{ duration: 4.2, repeat: Infinity, ease: 'linear' }}
+                className="absolute w-[600px] h-[600px] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay" />
+            <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none mix-blend-screen" />
 
-            {/* Curtain reveal */}
-            <AnimatePresence>
-                {phase === 'reveal' && (
-                    <>
-                        <m.div
-                            className="absolute inset-x-0 top-0 h-1/2 bg-[#030712] z-10"
-                            initial={{ scaleY: 1, originY: 0 }}
-                            animate={{ scaleY: 0 }}
-                            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-                        />
-                        <m.div
-                            className="absolute inset-x-0 bottom-0 h-1/2 bg-[#030712] z-10"
-                            initial={{ scaleY: 1, originY: 1 }}
-                            animate={{ scaleY: 0 }}
-                            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-                        />
-                    </>
-                )}
-            </AnimatePresence>
-
-            {/* Ambient glow */}
-            <div className="absolute w-96 h-96 rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none" />
-            <div className="absolute w-64 h-64 rounded-full bg-blue-500/5 blur-[100px] pointer-events-none translate-x-32 translate-y-32" />
-
-            {/* Logo */}
-            <m.div
-                className="relative mb-12"
-                initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-                <div className="text-5xl md:text-7xl font-bold font-mono text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-blue-500 select-none">
-                    &lt;Murugan /&gt;
-                </div>
-                {/* Glow behind text */}
-                <div className="absolute inset-0 text-5xl md:text-7xl font-bold font-mono text-cyan-400 opacity-20 blur-xl select-none pointer-events-none">
-                    &lt;Murugan /&gt;
-                </div>
-
-                {/* Orbiting ring */}
+            {/* ── Core Orbital Animation ── */}
+            <div className="relative mb-16 flex items-center justify-center">
+                {/* Center Core */}
                 <m.div
-                    className="absolute inset-[-10px] rounded-full border border-cyan-400/20"
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 7, repeat: Infinity, ease: 'linear' }}
+                    className="absolute w-12 h-12 bg-cyan-400 rounded-full blur-[20px]"
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <m.div
+                    className="w-4 h-4 bg-white rounded-full z-10 shadow-[0_0_20px_4px_rgba(34,211,238,0.8)]"
+                    animate={{ scale: [1, 0.8, 1] }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
                 />
 
-                {/* Orbiting spark */}
+                {/* Orbit Ring 1 (Inner) */}
                 <m.div
-                    className="absolute -top-2 -right-2 w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.8)]"
-                    animate={{ x: [0, -8, 0], y: [0, -8, 0], opacity: [1, 0.2, 1] }}
-                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute w-32 h-32 rounded-full border border-cyan-500/30 border-t-cyan-400"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
                 />
+
+                {/* Orbit Ring 2 (Outer Reverse) */}
+                <m.div
+                    className="absolute w-48 h-48 rounded-full border border-blue-500/20 border-b-blue-400 border-l-transparent"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+                />
+                
+                {/* Scanner sweep line */}
+                <m.div
+                    className="absolute h-64 w-[1px] bg-gradient-to-b from-transparent via-cyan-400 to-transparent blur-[1px]"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+                />
+            </div>
+
+            {/* ── Typography & Name ── */}
+            <m.div className="relative text-center z-10 mb-8" style={{ perspective: 1000 }}>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight flex items-center justify-center select-none overflow-hidden">
+                    <m.span
+                        className="text-white"
+                        initial={{ y: 50, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        Murugan
+                    </m.span>
+                    <m.span
+                        className="text-transparent bg-clip-text"
+                        style={{ backgroundImage: 'linear-gradient(135deg, #22d3ee, #3b82f6)' }}
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        .dev
+                    </m.span>
+                </h1>
             </m.div>
 
-            {/* Progress bar container */}
-            <m.div
-                className="w-64 md:w-80"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-            >
-                {/* Track */}
-                <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden relative">
-                    {/* Fill */}
-                    <m.div
-                        className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full relative"
-                        style={{ width: `${progress}%` }}
-                        transition={{ type: 'spring', stiffness: 60, damping: 20 }}
-                    >
-                        {/* Shimmer on fill */}
-                        <div className="absolute inset-0 overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-                        </div>
-
-                        {/* Moving glow orb */}
-                        <m.div
-                            className="absolute -top-1 h-4 w-4 rounded-full bg-cyan-300/70 shadow-[0_0_20px_rgba(56,189,248,0.7)]"
-                            animate={{
-                                x: `${Math.max(0, Math.min(progress, 100))}%`,
-                                scale: [0.8, 1.2, 0.8],
-                            }}
-                            transition={{
-                                duration: 0.7,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                            }}
-                        />
-                    </m.div>
-                </div>
-
-                {/* Counter */}
-                <div className="flex justify-between items-center mt-3">
-                    <span className="text-xs text-slate-600 font-mono tracking-widest uppercase">Loading</span>
-                    <span className="text-sm font-mono text-cyan-400 tabular-nums">
-                        {Math.round(progress).toString().padStart(3, '0')}%
+            {/* ── Status Header ── */}
+            <div className="w-64 sm:w-80 flex flex-col gap-3 relative z-10">
+                <div className="flex justify-between items-end">
+                    <span className="text-[10px] sm:text-xs font-mono font-semibold text-cyan-400 tracking-widest uppercase">
+                        {statusText}
+                    </span>
+                    <span className="text-sm font-mono text-white tabular-nums font-bold">
+                        {Math.floor(progress).toString().padStart(3, '0')}%
                     </span>
                 </div>
-            </m.div>
+
+                {/* ── Bar Container ── */}
+                <div className="relative h-1.5 w-full bg-[#080e1a] rounded-full overflow-hidden border border-white/[0.05]">
+                    {/* Progress Fill */}
+                    <m.div
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-300 rounded-full"
+                        style={{ width: `${progress}%` }}
+                        layout
+                        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+                    >
+                        {/* Glow bleeding outwards */}
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full blur-[4px] opacity-80" />
+                    </m.div>
+                </div>
+            </div>
         </m.div>
     );
 }

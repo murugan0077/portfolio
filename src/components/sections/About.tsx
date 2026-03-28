@@ -77,12 +77,12 @@ export default function About() {
                                 My primary toolkit involves building scalable microservices with <span className="font-semibold text-white">Java &amp; Spring Boot</span>, and crafting high-performance, dynamic UIs with <span className="font-semibold text-white">React.js &amp; Tailwind CSS</span>.
                             </p>
                             <p>
-                                I treat code not just as a set of instructions, but as a craft. When I'm not writing functions, orchestrating databases, or refining animations, I'm usually diving into new frameworks or system architectures to constantly sharpen my skillset.
+                                I treat code not just as a set of instructions, but as a craft. When I'm not writing functions, orchestrating databases, or refining animations, I'm usually diving into new system architectures to constantly sharpen my skillset. I have a growing passion for <span className="font-semibold text-white">Artificial Intelligence</span>—recently earning my Anthropic AI Fluency certification with a perfect score—and I plan to take many more AI courses to integrate advanced smart features into my development stack.
                             </p>
                         </div>
 
                         <div className="mt-8 flex flex-wrap gap-2 relative z-10">
-                            {['Creative Thinker', 'Problem Solver', 'Continuous Learner', 'Clean Code Advocate'].map(t => (
+                            {['Creative Thinker', 'Problem Solver', 'AI Enthusiast', 'Clean Code Advocate'].map(t => (
                                 <span key={t} className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/[0.04] text-slate-400 border border-white/[0.05] group-hover:border-cyan-500/20 transition-colors">
                                     {t}
                                 </span>
@@ -151,6 +151,7 @@ export default function About() {
                             </div>
                             <ul className="space-y-3 relative z-10">
                                 {[
+                                    'Anthropic: AI Fluency Certified (10/10)',
                                     '2nd place in debugging comp',
                                     'Secretary in Nanotier Assoc',
                                     'Google Digital Marketing Certified',
