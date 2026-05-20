@@ -17,6 +17,7 @@ export const useCompiler = (isActive: boolean) => {
         if (isActive && !isRunning && state === 'idle') {
             runSequence();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isActive]);
 
     const typeText = async (text: string, speed: number = 80) => {
@@ -27,7 +28,7 @@ export const useCompiler = (isActive: boolean) => {
         }
     };
 
-    const showOutput = async (text: string, _color: string = 'white', delay: number = 0) => {
+    const showOutput = async (text: string, delay: number = 0) => {
         await new Promise((resolve) => setTimeout(resolve, delay));
         if (!isMounted.current) return;
         setOutput((prev) => prev + text + '\n');
@@ -51,7 +52,7 @@ export const useCompiler = (isActive: boolean) => {
                 await new Promise((resolve) => setTimeout(resolve, step.displayDuration));
             } else if (step.type === 'output') {
                 setState('compiling');
-                await showOutput(step.text || '', step.color);
+                await showOutput(step.text || '');
                 await new Promise((resolve) => setTimeout(resolve, step.displayDuration));
             } else if (step.type === 'debugger') {
                 setState('debugger');

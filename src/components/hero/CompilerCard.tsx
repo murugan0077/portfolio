@@ -117,7 +117,7 @@ export default function CompilerCard({ isActive }: { isActive: boolean }) {
         setHasRun(true);
         setTerminalLines([]);
         setDebugChecks(0);
-        TERMINAL_LINES.forEach((line, i) => {
+        TERMINAL_LINES.forEach((line) => {
             setTimeout(() => {
                 setTerminalLines(prev => [...prev, line]);
                 if (terminalRef.current) terminalRef.current.scrollTop = 9999;
@@ -127,7 +127,7 @@ export default function CompilerCard({ isActive }: { isActive: boolean }) {
         for (let i = 1; i <= 5; i++) {
             setTimeout(() => setDebugChecks(i), 3600 + i * 300);
         }
-    }, [activeTab]);
+    }, [activeTab, hasRun]);
 
     const resetTerminal = () => {
         setTerminalLines([]);
