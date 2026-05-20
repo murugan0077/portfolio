@@ -179,7 +179,7 @@ export default function About() {
                         { icon: Zap, value: '1.7+', label: 'Years Experience', color: 'text-cyan-400' },
                         { icon: Award, value: '8+', label: 'Successful Projects', color: 'text-blue-400' },
                         { icon: Coffee, value: '10k+', label: 'Lines of Code', color: 'text-purple-400' },
-                    ].map((stat, i) => (
+                    ].map((stat) => (
                         <div
                             key={stat.label}
                             className="flex-1 group glass bg-[#0a0f1a] border border-white/[0.07] rounded-3xl p-6 sm:p-8 flex items-center gap-5 hover:border-white/[0.15] transition-all duration-300 hover:-translate-y-1"

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { m } from 'framer-motion';
+import { m, Variants } from 'framer-motion';
 import { ArrowRight, FileText, Sparkles, Github, Linkedin } from 'lucide-react';
 
 const ROLES = [
@@ -16,7 +16,8 @@ const container = {
         transition: { staggerChildren: 0.1, delayChildren: 0.2 },
     },
 };
-const item = {
+
+const item: Variants = {
     hidden: { opacity: 0, y: 32, filter: 'blur(8px)' },
     visible: {
         opacity: 1, y: 0, filter: 'blur(0px)',
@@ -32,7 +33,7 @@ export default function HeroText() {
     // Typewriter effect for role cycling
     useEffect(() => {
         const role = ROLES[roleIndex];
-        let i = displayed.length;
+        const i = displayed.length;
 
         if (typing) {
             if (i < role.length) {
